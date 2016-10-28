@@ -47,8 +47,8 @@ class model_user {
    function SaveUser ($userData) {
     
 
-     
     
+    $userData['id'] = !empty ($userData['id']) ? (int)$userData['id'] : 0;
     $userData['Email'] = !empty ($userData['Email']) ? trim (substr ($userData['Email'], 0, 100)) : "";
     $userData['FirstName'] = !empty ($userData['FirstName']) ? trim (substr ($userData['FirstName'], 0, 100)) : "";  
     $userData['LastName'] = !empty ($userData['LastName']) ? trim (substr ($userData['LastName'], 0, 100)) : "";  
@@ -60,9 +60,16 @@ class model_user {
   }
 
 
-
-
   $database = new database();
+
+  
+
+  
+  if (empty($userData['id']))
+  {
+
+
+  
   $database->query('INSERT INTO  '.database_config::DB_TABLE. ' (Email,FirstName,LastName,Password) VALUES (:Email,:FirstName,:LastName,:Password)');
 
    $database->bind(':Email', $userData['Email'],PDO::PARAM_STR);
@@ -74,6 +81,28 @@ class model_user {
    
 
    return $result;
+ }
+ else{
+
+
+  $database->query('UPDATE '.database_config::DB_TABLE. ' SET Email=:Email,FirstName=:FirstName,LastName=:LastName,Password=:Password WHERE id=:id');
+
+   $database->bind(':Email', $userData['Email'],PDO::PARAM_STR);
+   $database->bind(':FirstName', $userData['FirstName'],PDO::PARAM_STR);
+   $database->bind(':LastName', $userData['LastName'],PDO::PARAM_STR);
+   $database->bind(':Password', $userData['Password'],PDO::PARAM_STR);
+   $database->bind(':id', $userData['id'],PDO::PARAM_INT);
+
+   $result=$database->execute();   
+   
+
+   return $result;
+
+
+
+
+
+ }
     
 
 
