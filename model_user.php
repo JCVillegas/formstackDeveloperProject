@@ -43,7 +43,8 @@ class model_user
         $database = new database();
         $database->query('DELETE FROM '.database_config::DB_TABLE.' WHERE id=:id');
         $database->bind(':id', $userId['id'], PDO::PARAM_INT);
-        $result = $database->execute();        
+        $result = $database->execute();
+
         return $result;
     }
 

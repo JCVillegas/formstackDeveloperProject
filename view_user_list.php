@@ -1,10 +1,14 @@
 <?php
 
-
+require_once 'view_user_header.php';
+require_once 'view_user_footer.php';
 class view_user_list
 {
     public function Show($list)
     {
+        $header = new view_user_header();
+        $footer = new view_user_footer();
+
         $tableList = '<table border=1>';
         $tableList .= '<tr>';
         $tableList .= '<td>ID</td>';
@@ -28,6 +32,8 @@ class view_user_list
 
         $tableList .= '</table>';
 
+        $header->Show();
         echo $tableList;
+        $footer->Show();
     }
 }
