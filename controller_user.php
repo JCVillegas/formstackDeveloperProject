@@ -36,6 +36,12 @@ class controller_user
         }
     }
 
+    public function ConfirmDeleteUser()
+    {
+        $view = new view_user_delete();
+        $view->Show($_GET);
+    }
+
     public function DeleteUser()
     {
         $message = '';

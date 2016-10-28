@@ -17,5 +17,5 @@ $operation = !empty($_GET['operation']) ? trim($_GET['operation']) : '';
 if (($operation) && (method_exists($controller, $operation))) {
     $controller->$operation ();
 } else {
-    echo 'Invalid function!';
+    $controller->ReadUsers();
 }

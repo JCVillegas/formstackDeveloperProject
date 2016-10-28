@@ -13,6 +13,6 @@ class view_user_header
         $header .= '</header>';
         $header .= '<body>';
 
-        echo $header;
+        return $header;
     }
 }

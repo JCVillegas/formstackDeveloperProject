@@ -26,7 +26,7 @@ class view_user_list
             $tableList .= '<td>'.htmlentities($value['FirstName']).'</td>';
             $tableList .= '<td>'.htmlentities($value['LastName']).'</td>';
             $tableList .= '<td><a href="index.php?operation=UpdateUser&id='.urlencode($value['id']).'">edit</a></td>';
-            $tableList .= '<td><a href="index.php?operation=DeleteUser&id='.urlencode($value['id']).'">delete</a</td>';
+            $tableList .= '<td><a href="index.php?operation=ConfirmDeleteUser&id='.urlencode($value['id']).'">delete</a</td>';
             $tableList .= '</tr>';
         }
 
