@@ -1,16 +1,12 @@
 <?php
 
 
-
-
-
 class model_user {
-
 
 
   
    function GetAllUsers () {
-     $list = array ();     /** aqui va el SQL **/
+     $list = array ();    
      $database = new database();
      $database->query('SELECT * FROM  '.database_config::DB_TABLE);
      $rows = $database->resultset();
@@ -18,7 +14,26 @@ class model_user {
    }
 
 
-   function GetUser () {
+   function GetUser ($userId) {
+   
+   $userId['id'] = !empty ($userId['id']) ? (int)$userId['id'] : 0;
+   if ($userId['id']==0)
+    return false;
+
+    $database = new database();
+    $database->query('SELECT * FROM  '.database_config::DB_TABLE. ' WHERE id=:id');
+    $database->bind(':id', $userId['id'],PDO::PARAM_INT);
+    $row = $database->resultset();
+    if (empty($row))
+    {
+      return false;
+    }
+    else
+    {
+    return ($row[0]);
+
+    }
+
    }
 
 

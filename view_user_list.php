@@ -30,7 +30,7 @@ class view_user_list {
     $tableList.='</tr>';
   	}
     
-     $tableList.='<t/able>';
+     $tableList.='</table>';
 
      echo $tableList;
   }

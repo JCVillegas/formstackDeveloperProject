@@ -31,6 +31,24 @@ class controller_user {
 
 
    public function UpdateUser () {
+   
+   $view = new view_user_edit();
+   $userData=$this->model->GetUser($_GET);
+
+   if ($userData)
+  {
+   
+    $view->Show ($userData);
+  }
+
+  else{
+     $view = new view_user_message();
+     $view->Show ('There was an error.');
+
+
+  }
+   
+
    }
 
 
@@ -46,12 +64,12 @@ public function SaveUser () {
   if ($result)
   {
    
-    $view->Show ('The user has been created.');
+    $view->Show ('The user has been saved.');
   }
 
   else{
 
-     $view->Show ('There was an error with the database.');
+     $view->Show ('There was an error.');
 
 
   }
