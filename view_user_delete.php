@@ -1,15 +1,9 @@
 <?php
 
 
-
-
-class view_user_delete {
-
-
-  function Show () {
-
-  }
-
-
+class view_user_delete
+{
+    public function Show()
+    {
+    }
 }
-
