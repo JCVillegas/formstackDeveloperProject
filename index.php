@@ -9,6 +9,7 @@ require_once ("model_user.php");
 require_once ("view_user_delete.php");
 require_once ("view_user_edit.php");
 require_once ("view_user_list.php");
+require_once ("view_user_message.php");
 
 
 $controller = new controller_user;

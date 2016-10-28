@@ -46,12 +46,12 @@ public function SaveUser () {
   if ($result)
   {
    
-    $view->Show ();
+    $view->Show ('The user has been created.');
   }
 
   else{
-$view = new view_user_messageOk();
-     $view->Show ();
+
+     $view->Show ('There was an error with the database.');
 
 
   }
