@@ -73,7 +73,8 @@ class model_user
     $database->query('SELECT * FROM  '.database_config::DB_TABLE.' WHERE Email=:Email');
       $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
       $row = $database->resultset();
-      if (empty($row)) {
+
+      if (!empty($row)) {
           throw new Exception('Cannot create user, email already exists.');
       } else {
           $database->query('INSERT INTO  '.database_config::DB_TABLE.' (Email,FirstName,LastName,Password) VALUES (:Email,:FirstName,:LastName,:Password)');
@@ -97,6 +98,7 @@ class model_user
      $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
      $database->bind(':id', $userData['id'], PDO::PARAM_INT);
      $row = $database->resultset();
+
      if (empty($row)) {
          $database->query('UPDATE '.database_config::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,LastName=:LastName,Password=:Password WHERE id=:id');
 

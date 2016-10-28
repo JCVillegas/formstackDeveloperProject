@@ -8,6 +8,6 @@ class view_user_footer
         $header = '</body>';
         $header = '</html>';
 
-        echo $header;
+        return $header;
     }
 }

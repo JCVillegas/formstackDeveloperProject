@@ -33,7 +33,12 @@ class view_user_list
         $tableList .= '</table>';
 
         $header->Show();
-        echo $tableList;
+        if (empty($list)) {
+            echo 'No data yet.';
+        } else {
+            echo $tableList;
+        }
+
         $footer->Show();
     }
 }
