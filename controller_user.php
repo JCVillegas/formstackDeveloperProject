@@ -58,10 +58,23 @@ class controller_user {
 
 public function SaveUser () {
 
+  $message='';
+
+  try
+  {
+
   $result=$this->model->SaveUser ($_POST);
+}
+
+
+catch (Exception $e) {
+
+    $message=$e->getMessage();
+}
+
   $view = new view_user_message();
 
-  if ($result)
+  if (empty($message))
   {
    
     $view->Show ('The user has been saved.');
@@ -69,7 +82,7 @@ public function SaveUser () {
 
   else{
 
-     $view->Show ('There was an error.');
+     $view->Show ('There was an error: '. $message);
 
 
   }
