@@ -1,7 +1,5 @@
 <?php
 
-require_once 'view_user_header.php';
-require_once 'view_user_footer.php';
 class view_user_delete
 {
     public function Show($id)

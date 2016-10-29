@@ -10,6 +10,8 @@ require_once 'view_user_delete.php';
 require_once 'view_user_edit.php';
 require_once 'view_user_list.php';
 require_once 'view_user_message.php';
+require_once 'view_user_header.php';
+require_once 'view_user_footer.php';
 
 $controller = new controller_user();
 $operation = !empty($_GET['operation']) ? trim($_GET['operation']) : '';
