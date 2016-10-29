@@ -76,7 +76,9 @@ class controller_user
         if (empty($message)) {
             $view->Show('The user has been saved.');
         } else {
-            $view->Show('There was an error: '.$message);
+            $error = 'There was an error: '.$message;
+            $view = new view_user_edit();
+            $view->Show($_POST, $error);
         }
     }
 }

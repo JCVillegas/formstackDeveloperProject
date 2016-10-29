@@ -1,10 +1,14 @@
 <?php
 
-
+require_once 'view_user_header.php';
+require_once 'view_user_footer.php';
 class view_user_edit
 {
-    public function Show($userData = array())
+    public function Show($userData = array(), $error = '')
     {
+        $header = new view_user_header();
+        $footer = new view_user_footer();
+
         $emailValue = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $firstNameValue = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
         $lastNameValue = !empty($userData['LastName']) ? trim(substr($userData['LastName'], 0, 100)) : '';
@@ -19,6 +23,11 @@ class view_user_edit
         $createUserForm .= "<input type='submit' name='CreateUser'> </input>";
         $createUserForm .= '</form>';
 
+        $header->Show();
+        if (!empty($error)) {
+            echo $error;
+        }
         echo $createUserForm;
+        $footer->Show();
     }
 }

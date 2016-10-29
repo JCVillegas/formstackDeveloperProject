@@ -37,7 +37,7 @@ class model_user
     {
         $userId['id'] = !empty($userId['id']) ? (int) $userId['id'] : 0;
         if ($userId['id'] == 0) {
-            throw new Exception('Incorrect data.');
+            throw new Exception('Incorrect user id.');
         }
 
         $database = new database();
@@ -61,7 +61,7 @@ class model_user
         $userData['Password'] = !empty($userData['Password']) ? trim(substr($userData['Password'], 0, 100)) : '';
 
         if ($userData['Email'] == '' || $userData['FirstName'] == '' || $userData['LastName'] == '' || $userData['Password'] == '') {
-            throw new Exception('Incomplete data.');
+            throw new Exception('Incomplete user data.');
         }
 
         $database = new database();
