@@ -14,6 +14,7 @@ class view_user_list
         $tableList .= '<td>Email</td>';
         $tableList .= '<td>FirstName</td>';
         $tableList .= '<td>LastName</td>';
+        $tableList .= '<td>Update Password</td>';
         $tableList .= '<td>Edit User</td>';
         $tableList .= '<td>Delete User</td>';
         $tableList .= '</tr>';
@@ -24,6 +25,7 @@ class view_user_list
             $tableList .= '<td>'.htmlentities($value['Email']).'</td>';
             $tableList .= '<td>'.htmlentities($value['FirstName']).'</td>';
             $tableList .= '<td>'.htmlentities($value['LastName']).'</td>';
+            $tableList .= '<td><a href="index.php?operation=UpdatePassword&id='.urlencode($value['id']).'">update</a></td>';
             $tableList .= '<td><a href="index.php?operation=UpdateUser&id='.urlencode($value['id']).'">edit</a></td>';
             $tableList .= '<td><a href="index.php?operation=ConfirmDeleteUser&id='.urlencode($value['id']).'">delete</a</td>';
             $tableList .= '</tr>';
@@ -32,9 +34,11 @@ class view_user_list
         $tableList .= '</table>';
 
         $header->Show();
+
         if (empty($list)) {
             echo 'No data yet.';
         } else {
+            echo  "<a href='index.php?operation=CreateUser'>Create new user</a><br><br>";
             echo $tableList;
         }
 

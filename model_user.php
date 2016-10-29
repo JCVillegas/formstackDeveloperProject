@@ -48,8 +48,40 @@ class model_user
         return $result;
     }
 
-    public function UpdateUser()
+    public function UpdatePassword($userPasswords)
     {
+        $userPasswords['id'] = !empty($userPasswords['id']) ? (int) $userPasswords['id'] : 0;
+        $userPasswords['currentPassword'] = !empty($userPasswords['currentPassword']) ? trim(substr($userPasswords['currentPassword'], 0, 100)) : '';
+        $userPasswords['newPassword1'] = !empty($userPasswords['newPassword1']) ? trim(substr($userPasswords['newPassword1'], 0, 100)) : '';
+        $userPasswords['newPassword2'] = !empty($userPasswords['newPassword2']) ? trim(substr($userPasswords['newPassword2'], 0, 100)) : '';
+
+        if ($userPasswords['id'] == '' || $userPasswords['currentPassword'] == '' || $userPasswords['newPassword1'] == '' ||
+          $userPasswords['newPassword2'] == '') {
+            throw new Exception('Incomplete user data.');
+        }
+
+        if ($userPasswords['newPassword1'] != $userPasswords['newPassword2']) {
+            throw new Exception('New passwords do not match.');
+        }
+
+        $database = new database();
+        $database->query('SELECT Password FROM  '.database_config::DB_TABLE.' WHERE id=:id');
+        $database->bind(':id', $userPasswords['id'], PDO::PARAM_INT);
+        $row = $database->resultset();
+
+        if (empty($row[0]['Password']) || !password_verify($userPasswords['currentPassword'], $row[0]['Password'])) {
+            throw new Exception('Invalid current password.');
+        }
+
+        $userPasswords['newPassword1'] = password_hash($userPasswords['newPassword1'], PASSWORD_DEFAULT);
+        $database->query('UPDATE '.database_config::DB_TABLE.' SET Password=:Password WHERE id=:id');
+
+        $database->bind(':Password', $userPasswords['newPassword1'], PDO::PARAM_STR);
+        $database->bind(':id', $userPasswords['id'], PDO::PARAM_INT);
+
+        $result = $database->execute();
+
+        return $result;
     }
 
     public function SaveUser($userData)
@@ -77,6 +109,7 @@ class model_user
       if (!empty($row)) {
           throw new Exception('Cannot create user, email already exists.');
       } else {
+          $userData['Password'] = password_hash($userData['Password'], PASSWORD_DEFAULT);
           $database->query('INSERT INTO  '.database_config::DB_TABLE.' (Email,FirstName,LastName,Password) VALUES (:Email,:FirstName,:LastName,:Password)');
 
           $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
@@ -94,18 +127,16 @@ class model_user
  else {
 
   //VALIDATE EMAIL WHEN UPDATING USER
-    $database->query('SELECT * FROM  '.database_config::DB_TABLE.' WHERE Email=:Email AND id=:id');
+    $database->query('SELECT id FROM  '.database_config::DB_TABLE.' WHERE Email=:Email');
      $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
-     $database->bind(':id', $userData['id'], PDO::PARAM_INT);
      $row = $database->resultset();
 
-     if (empty($row)) {
-         $database->query('UPDATE '.database_config::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,LastName=:LastName,Password=:Password WHERE id=:id');
+     if (empty($row[0]['id']) || (!empty($row) && $userData['id'] == $row[0]['id'])) {
+         $database->query('UPDATE '.database_config::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,LastName=:LastName WHERE id=:id');
 
          $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
          $database->bind(':FirstName', $userData['FirstName'], PDO::PARAM_STR);
          $database->bind(':LastName', $userData['LastName'], PDO::PARAM_STR);
-         $database->bind(':Password', $userData['Password'], PDO::PARAM_STR);
          $database->bind(':id', $userData['id'], PDO::PARAM_INT);
 
          $result = $database->execute();

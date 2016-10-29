@@ -36,6 +36,34 @@ class controller_user
         }
     }
 
+    public function UpdatePassword()
+    {
+        $view = new view_user_update_password();
+        $view->Show($_GET);
+    }
+
+    public function SavePassword()
+    {
+        $message = '';
+
+        try {
+            $updatePassword = $this->model->UpdatePassword($_POST);
+        } catch (Exception $e) {
+            $message = $e->getMessage();
+        }
+
+        $view = new view_user_message();
+
+        if (empty($message)) {
+            $view->Show('The user password has been updated.');
+        } else {
+            $error = 'There was an error: '.$message;
+
+            $view = new view_user_update_password();
+            $view->Show($_POST, $error);
+        }
+    }
+
     public function ConfirmDeleteUser()
     {
         $view = new view_user_delete();
