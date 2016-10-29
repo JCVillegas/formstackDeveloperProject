@@ -20,7 +20,8 @@ class view_user_edit
         $createUserForm .= "LastName: <input type='text' name='LastName' value='".htmlentities($lastNameValue)."'> </input><br>";
         $createUserForm .= "Password: <input type='password' name='Password' value='".htmlentities($password)."'> </input><br>";
         $createUserForm .= "<input type='hidden' name='id' value='".htmlentities($id)."'> </input><br>";
-        $createUserForm .= "<input type='submit' name='CreateUser'> </input>";
+        $createUserForm .= "<input type='submit' name='Save user'> </input>";
+        $createUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $createUserForm .= '</form>';
 
         $header->Show();

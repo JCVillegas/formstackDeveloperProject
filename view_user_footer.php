@@ -5,9 +5,9 @@ class view_user_footer
 {
     public function Show()
     {
-        $header = '</body>';
-        $header = '</html>';
+        $footer = '</body>';
+        $footer = '</html>';
 
-        return $header;
+        echo $footer;
     }
 }
