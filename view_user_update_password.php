@@ -1,12 +1,12 @@
 <?php
 
 
-class view_user_update_password
+class ViewUserUpdatePassword
 {
-    public function Show($id, $error = '')
+    public function show($id, $error = '')
     {
-        $header = new view_user_header();
-        $footer = new view_user_footer();
+        $header = new ViewUserHeader();
+        $footer = new ViewUserFooter();
 
         $updatepasswordUserForm = "<form action='index.php?operation=SavePassword' method='post'>";
         $updatepasswordUserForm .= "Type current password: <input type='password' name='currentPassword'> <br>";
@@ -17,7 +17,7 @@ class view_user_update_password
         $updatepasswordUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $updatepasswordUserForm .= '</form>';
 
-        $header->Show();
+        $header->show();
 
         if (!empty($error)) {
             echo $error.'<br>';
@@ -25,6 +25,6 @@ class view_user_update_password
 
         echo $updatepasswordUserForm;
 
-        $footer->Show();
+        $footer->show();
     }
 }

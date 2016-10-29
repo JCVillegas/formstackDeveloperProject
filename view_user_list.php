@@ -1,12 +1,12 @@
 <?php
 
 
-class view_user_list
+class ViewUserList
 {
-    public function Show($list)
+    public function show($list)
     {
-        $header = new view_user_header();
-        $footer = new view_user_footer();
+        $header = new ViewUserHeader();
+        $footer = new ViewUserFooter();
 
         $tableList = '<table border=1>';
         $tableList .= '<tr>';
@@ -25,15 +25,18 @@ class view_user_list
             $tableList .= '<td>'.htmlentities($value['Email']).'</td>';
             $tableList .= '<td>'.htmlentities($value['FirstName']).'</td>';
             $tableList .= '<td>'.htmlentities($value['LastName']).'</td>';
-            $tableList .= '<td><a href="index.php?operation=UpdatePassword&id='.urlencode($value['id']).'">update</a></td>';
+            $tableList .= '<td><a href="index.php?operation=UpdatePassword&id='.urlencode($value['id']).'">update</a>';
+            $tableList .= '</td>';
             $tableList .= '<td><a href="index.php?operation=UpdateUser&id='.urlencode($value['id']).'">edit</a></td>';
-            $tableList .= '<td><a href="index.php?operation=ConfirmDeleteUser&id='.urlencode($value['id']).'">delete</a</td>';
+            $tableList .= '<td><a href="index.php?operation=ConfirmDeleteUser&id='.urlencode($value['id']).'">';
+            $tableList .= 'delete</a>';
+            $tableList .= '</td>';
             $tableList .= '</tr>';
         }
 
         $tableList .= '</table>';
 
-        $header->Show();
+        $header->show();
 
         if (empty($list)) {
             echo 'No data yet.';
@@ -42,6 +45,6 @@ class view_user_list
             echo $tableList;
         }
 
-        $footer->Show();
+        $footer->show();
     }
 }

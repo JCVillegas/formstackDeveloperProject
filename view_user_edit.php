@@ -1,11 +1,11 @@
 <?php
 
-class view_user_edit
+class ViewUserEdit
 {
-    public function Show($userData = array(), $error = '')
+    public function show($userData = array(), $error = '')
     {
-        $header = new view_user_header();
-        $footer = new view_user_footer();
+        $header = new ViewUserHeader();
+        $footer = new ViewUserFooter();
 
         $emailValue = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $firstNameValue = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
@@ -16,19 +16,22 @@ class view_user_edit
 
         $createUserForm = "<form action='index.php?operation=SaveUser' method='post'>";
         $createUserForm .= "Email: <input type='text' name='Email' value='".htmlentities($emailValue)."'> <br>";
-        $createUserForm .= "FirstName: <input type='text' name='FirstName' value='".htmlentities($firstNameValue)."'> <br>";
-        $createUserForm .= "LastName: <input type='text' name='LastName' value='".htmlentities($lastNameValue)."'> <br>";
-        $createUserForm .= "Password: <input type='password' name='Password' value='".htmlentities($password)."'> <br>";
+        $createUserForm .= "FirstName: <input type='text' name='FirstName' value='".htmlentities($firstNameValue)."'>";
+        $createUserForm .= '<br>';
+        $createUserForm .= "LastName: <input type='text' name='LastName' value='".htmlentities($lastNameValue)."'>";
+        $createUserForm .= '<br>';
+        $createUserForm .= "Password: <input type='password' name='Password' value='".htmlentities($password)."'>";
+        $createUserForm .= '<br>';
         $createUserForm .= "<input type='hidden' name='id' value='".htmlentities($id)."'> <br>";
         $createUserForm .= "<input type='submit' name='Save user'> </input>";
         $createUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $createUserForm .= '</form>';
 
-        $header->Show();
+        $header->show();
         if (!empty($error)) {
             echo $error.'<br>';
         }
         echo $createUserForm;
-        $footer->Show();
+        $footer->show();
     }
 }

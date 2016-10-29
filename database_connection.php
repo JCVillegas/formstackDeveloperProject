@@ -9,7 +9,7 @@ class Database
 
     public function __construct()
     {
-        $dataSource = 'mysql:host='.database_config::DB_HOST.';dbname='.database_config::DB_NAME;
+        $dataSource = 'mysql:host='.DatabaseConfig::DB_HOST.';dbname='.DatabaseConfig::DB_NAME;
 
         $options = array(
             PDO::ATTR_PERSISTENT => true,
@@ -18,7 +18,7 @@ class Database
         );
 
         try {
-            $this->databaseHandler = new PDO($dataSource, database_config::DB_USER, database_config::DB_PASS, $options);
+            $this->databaseHandler = new PDO($dataSource, DatabaseConfig::DB_USER, DatabaseConfig::DB_PASS, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
         }
@@ -39,7 +39,7 @@ class Database
         return $this->sql->execute();
     }
 
-    public function resultset()
+    public function resultSet()
     {
         $this->execute();
 

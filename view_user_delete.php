@@ -1,11 +1,11 @@
 <?php
 
-class view_user_delete
+class ViewUserDelete
 {
-    public function Show($id)
+    public function show($id)
     {
-        $header = new view_user_header();
-        $footer = new view_user_footer();
+        $header = new ViewUserHeader();
+        $footer = new ViewUserFooter();
 
         $tableConfirm = '<table border=1>';
         $tableConfirm .= '<tr>';
@@ -16,8 +16,8 @@ class view_user_delete
         $tableConfirm .= '<td><a href="index.php?operation=ReadUsers">No</a></td>';
         $tableConfirm .= '</tr>';
         $tableConfirm .= '</table>';
-        $header->Show();
+        $header->show();
         echo $tableConfirm;
-        $footer->Show();
+        $footer->show();
     }
 }

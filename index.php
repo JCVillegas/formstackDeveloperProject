@@ -14,11 +14,11 @@ require_once 'view_user_message.php';
 require_once 'view_user_header.php';
 require_once 'view_user_footer.php';
 
-$controller = new controller_user();
+$controller = new ControllerUser();
 $operation = !empty($_GET['operation']) ? trim($_GET['operation']) : '';
 
 if (($operation) && (method_exists($controller, $operation))) {
     $controller->$operation ();
 } else {
-    $controller->ReadUsers();
+    $controller->readUsers();
 }

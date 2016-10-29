@@ -1,9 +1,9 @@
 <?php
 
 
-class view_user_header
+class ViewUserHeader
 {
-    public function Show()
+    public function show()
     {
         $header = '<html>';
         $header .= '<header>';

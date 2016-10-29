@@ -1,9 +1,9 @@
 <?php
 
 
-class view_user_footer
+class ViewUserFooter
 {
-    public function Show()
+    public function show()
     {
         $footer = '</body>';
         $footer = '</html>';

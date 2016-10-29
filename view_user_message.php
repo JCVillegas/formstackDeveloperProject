@@ -1,16 +1,16 @@
 <?php
 
 
-class view_user_message
+class ViewUserMessage
 {
-    public function Show($message)
+    public function show($message)
     {
-        $header = new view_user_header();
-        $footer = new view_user_footer();
+        $header = new ViewUserHeader();
+        $footer = new ViewUserFooter();
 
-        $header->Show();
+        $header->show();
         echo $message;
         echo "<br><a href='index.php?operation=ReadUsers'>Continue to list users</a>";
-        $footer->Show();
+        $footer->show();
     }
 }

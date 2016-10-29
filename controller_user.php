@@ -1,112 +1,112 @@
 <?php
 
 
-class controller_user
+class ControllerUser
 {
     private $model;
 
     public function __construct()
     {
-        $this->model = new model_user();
+        $this->model = new modelUser();
     }
 
-    public function CreateUser()
+    public function createUser()
     {
-        $view = new view_user_edit();
-        $view->Show();
+        $view = new ViewUserEdit();
+        $view->show();
     }
 
-    public function ReadUsers()
+    public function readUsers()
     {
-        $view = new view_user_list();
-        $list = $this->model->GetAllUsers();
-        $view->Show($list);
+        $view = new ViewUserList();
+        $list = $this->model->getAllUsers();
+        $view->show($list);
     }
 
-    public function UpdateUser()
+    public function updateUser()
     {
-        $view = new view_user_edit();
-        $userData = $this->model->GetUser($_GET);
+        $view = new ViewUserEdit();
+        $userData = $this->model->getUser($_GET);
 
         if ($userData) {
-            $view->Show($userData);
+            $view->show($userData);
         } else {
-            $view = new view_user_message();
-            $view->Show('There was an error.');
+            $view = new viewUserMessage();
+            $view->show('There was an error.');
         }
     }
 
-    public function UpdatePassword()
+    public function updatePassword()
     {
-        $view = new view_user_update_password();
-        $view->Show($_GET);
+        $view = new viewUserUpdatePassword();
+        $view->show($_GET);
     }
 
-    public function SavePassword()
+    public function savePassword()
     {
         $message = '';
 
         try {
-            $updatePassword = $this->model->UpdatePassword($_POST);
+            $updatePassword = $this->model->updatePassword($_POST);
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
 
-        $view = new view_user_message();
+        $view = new viewUserMessage();
 
         if (empty($message)) {
-            $view->Show('The user password has been updated.');
+            $view->show('The user password has been updated.');
         } else {
             $error = 'There was an error: '.$message;
 
-            $view = new view_user_update_password();
-            $view->Show($_POST, $error);
+            $view = new viewUserUpdatePassword();
+            $view->show($_POST, $error);
         }
     }
 
-    public function ConfirmDeleteUser()
+    public function confirmDeleteUser()
     {
-        $view = new view_user_delete();
-        $view->Show($_GET);
+        $view = new viewUserDelete();
+        $view->show($_GET);
     }
 
-    public function DeleteUser()
+    public function deleteUser()
     {
         $message = '';
 
         try {
-            $userToDelete = $this->model->DeleteUser($_GET);
+            $userToDelete = $this->model->deleteUser($_GET);
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
 
-        $view = new view_user_message();
+        $view = new viewUserMessage();
 
         if (empty($message)) {
-            $view->Show('The user has been deleted.');
+            $view->show('The user has been deleted.');
         } else {
-            $view->Show('There was an error: '.$message);
+            $view->show('There was an error: '.$message);
         }
     }
 
-    public function SaveUser()
+    public function saveUser()
     {
         $message = '';
 
         try {
-            $result = $this->model->SaveUser($_POST);
+            $result = $this->model->saveUser($_POST);
         } catch (Exception $e) {
             $message = $e->getMessage();
         }
 
-        $view = new view_user_message();
+        $view = new viewUserMessage();
 
         if (empty($message)) {
-            $view->Show('The user has been saved.');
+            $view->show('The user has been saved.');
         } else {
             $error = 'There was an error: '.$message;
-            $view = new view_user_edit();
-            $view->Show($_POST, $error);
+            $view = new viewUserEdit();
+            $view->show($_POST, $error);
         }
     }
 }

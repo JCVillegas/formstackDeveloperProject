@@ -1,7 +1,7 @@
 <?php
 
 
-class database_config
+class DatabaseConfig
 {
     const DB_HOST = 'testbox.dev';
     const DB_USER = 'my_app';
