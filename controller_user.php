@@ -30,7 +30,7 @@ class ControllerUser
         $userData = $this->model->getUser($_GET);
 
         if ($userData) {
-            $view->show($userData,'',true);
+            $view->show($userData, '', true);
         } else {
             $view = new viewUserMessage();
             $view->show('There was an error.');
@@ -92,7 +92,7 @@ class ControllerUser
 
     public function saveUser()
     {
-        $updateForm=!empty($_POST['updateForm']);        
+        $updateForm=!empty($_POST['updateForm']);
         
         $message = '';
 
@@ -109,7 +109,7 @@ class ControllerUser
         } else {
             $error = 'There was an error: '.$message;
             $view = new viewUserEdit();
-            $view->show($_POST, $error,$updateForm);
+            $view->show($_POST, $error, $updateForm);
         }
     }
 }

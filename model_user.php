@@ -90,7 +90,7 @@ class ModelUser
     }
 
     public function saveUser($userData)
-    {   
+    {
         $userData['id'] = !empty($userData['id']) ? (int) $userData['id'] : 0;
         $userData['Email'] = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $userData['FirstName'] = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
@@ -113,10 +113,10 @@ class ModelUser
             } else {
                 
 
-             if($userData['Password'] == ''){
-               throw new \Exception('Cannot create user, password is missing.');
+                if ($userData['Password'] == '') {
+                    throw new \Exception('Cannot create user, password is missing.');
 
-             }
+                }
 
                 $userData['Password'] = password_hash($userData['Password'], PASSWORD_DEFAULT);
                 $database->query('INSERT INTO  '.DatabaseConfig::DB_TABLE.' (Email,FirstName,LastName,Password) 
