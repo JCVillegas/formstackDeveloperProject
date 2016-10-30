@@ -1,5 +1,6 @@
 <?php
 
+namespace JCVillegas\DevProject;
 
 class ControllerUser
 {
@@ -48,7 +49,7 @@ class ControllerUser
 
         try {
             $updatePassword = $this->model->updatePassword($_POST);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
 
@@ -76,7 +77,7 @@ class ControllerUser
 
         try {
             $userToDelete = $this->model->deleteUser($_GET);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
 
@@ -95,7 +96,7 @@ class ControllerUser
 
         try {
             $result = $this->model->saveUser($_POST);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             $message = $e->getMessage();
         }
 

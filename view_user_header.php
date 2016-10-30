@@ -1,5 +1,6 @@
 <?php
 
+namespace JCVillegas\DevProject;
 
 class ViewUserHeader
 {

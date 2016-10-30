@@ -1,5 +1,7 @@
 <?php
 
+namespace JCVillegas\DevProject;
+
 class ViewUserEdit
 {
     public function show($userData = array(), $error = '')

@@ -1,7 +1,8 @@
 <?php
 
+namespace JCVillegas\DevProject;
 
-class Database
+class DatabaseConnection
 {
     private $databaseHandler;
     private $error;
@@ -12,13 +13,13 @@ class Database
         $dataSource = 'mysql:host='.DatabaseConfig::DB_HOST.';dbname='.DatabaseConfig::DB_NAME;
 
         $options = array(
-            PDO::ATTR_PERSISTENT => true,
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-            PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
+            \PDO::ATTR_PERSISTENT => true,
+            \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
+            \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
 
         try {
-            $this->databaseHandler = new PDO($dataSource, DatabaseConfig::DB_USER, DatabaseConfig::DB_PASS, $options);
+            $this->databaseHandler = new \PDO($dataSource, DatabaseConfig::DB_USER, DatabaseConfig::DB_PASS, $options);
         } catch (PDOException $e) {
             $this->error = $e->getMessage();
         }
@@ -43,6 +44,6 @@ class Database
     {
         $this->execute();
 
-        return $this->sql->fetchAll(PDO::FETCH_ASSOC);
+        return $this->sql->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

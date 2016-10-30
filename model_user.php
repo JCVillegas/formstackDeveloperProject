@@ -1,5 +1,6 @@
 <?php
 
+namespace JCVillegas\DevProject;
 
 class ModelUser
 {
@@ -24,7 +25,7 @@ class ModelUser
 
         $database = new database();
         $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userId['id'], PDO::PARAM_INT);
+        $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
         $row = $database->resultset();
         if (empty($row)) {
             return false;
@@ -37,12 +38,12 @@ class ModelUser
     {
         $userId['id'] = !empty($userId['id']) ? (int) $userId['id'] : 0;
         if ($userId['id'] == 0) {
-            throw new Exception('Incorrect user id.');
+            throw new \Exception('Incorrect user id.');
         }
 
         $database = new database();
         $database->query('DELETE FROM '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userId['id'], PDO::PARAM_INT);
+        $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
         $result = $database->execute();
 
         return $result;
@@ -61,27 +62,27 @@ class ModelUser
         if ($userPasswords['id'] == '' || $userPasswords['currentPassword'] == '' ||
           $userPasswords['newPassword1'] == '' ||
           $userPasswords['newPassword2'] == '') {
-            throw new Exception('Incomplete user data.');
+            throw new \Exception('Incomplete user data.');
         }
 
         if ($userPasswords['newPassword1'] != $userPasswords['newPassword2']) {
-            throw new Exception('New passwords do not match.');
+            throw new \Exception('New passwords do not match.');
         }
 
         $database = new database();
         $database->query('SELECT Password FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userPasswords['id'], PDO::PARAM_INT);
+        $database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
         $row = $database->resultset();
 
         if (empty($row[0]['Password']) || !password_verify($userPasswords['currentPassword'], $row[0]['Password'])) {
-            throw new Exception('Invalid current password.');
+            throw new \Exception('Invalid current password.');
         }
 
         $userPasswords['newPassword1'] = password_hash($userPasswords['newPassword1'], PASSWORD_DEFAULT);
         $database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Password=:Password WHERE id=:id');
 
-        $database->bind(':Password', $userPasswords['newPassword1'], PDO::PARAM_STR);
-        $database->bind(':id', $userPasswords['id'], PDO::PARAM_INT);
+        $database->bind(':Password', $userPasswords['newPassword1'], \PDO::PARAM_STR);
+        $database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
 
         $result = $database->execute();
 
@@ -98,27 +99,27 @@ class ModelUser
 
         if ($userData['Email'] == '' || $userData['FirstName'] == '' || $userData['LastName'] == '' ||
           $userData['Password'] == '') {
-            throw new Exception('Incomplete user data.');
+            throw new \Exception('Incomplete user data.');
         }
 
         $database = new database();
 
         if (empty($userData['id'])) {
             $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
-            $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
+            $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
             $row = $database->resultset();
 
             if (!empty($row)) {
-                throw new Exception('Cannot create user, email already exists.');
+                throw new \Exception('Cannot create user, email already exists.');
             } else {
                 $userData['Password'] = password_hash($userData['Password'], PASSWORD_DEFAULT);
                 $database->query('INSERT INTO  '.DatabaseConfig::DB_TABLE.' (Email,FirstName,LastName,Password) 
                   VALUES (:Email,:FirstName,:LastName,:Password)');
 
-                $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
-                $database->bind(':FirstName', $userData['FirstName'], PDO::PARAM_STR);
-                $database->bind(':LastName', $userData['LastName'], PDO::PARAM_STR);
-                $database->bind(':Password', $userData['Password'], PDO::PARAM_STR);
+                $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+                $database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
+                $database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
+                $database->bind(':Password', $userData['Password'], \PDO::PARAM_STR);
 
                 $result = $database->execute();
 
@@ -126,23 +127,23 @@ class ModelUser
             }
         } else {
             $database->query('SELECT id FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
-            $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
+            $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
             $row = $database->resultset();
 
             if (empty($row[0]['id']) || (!empty($row) && $userData['id'] == $row[0]['id'])) {
                 $database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,
                   LastName=:LastName WHERE id=:id');
 
-                $database->bind(':Email', $userData['Email'], PDO::PARAM_STR);
-                $database->bind(':FirstName', $userData['FirstName'], PDO::PARAM_STR);
-                $database->bind(':LastName', $userData['LastName'], PDO::PARAM_STR);
-                $database->bind(':id', $userData['id'], PDO::PARAM_INT);
+                $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+                $database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
+                $database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
+                $database->bind(':id', $userData['id'], \PDO::PARAM_INT);
 
                 $result = $database->execute();
 
                 return $result;
             } else {
-                throw new Exception('Cannot update user, email already exists.');
+                throw new \Exception('Cannot update user, email already exists.');
             }
         }
     }

@@ -1,5 +1,7 @@
 <?php
 
+namespace JCVillegas\DevProject;
+
 class ViewUserDelete
 {
     public function show($id)
