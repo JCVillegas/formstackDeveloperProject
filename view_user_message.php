@@ -2,8 +2,15 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View generic messages class
+*/
 class ViewUserMessage
 {
+    /**
+     * @param  string $message
+     * @return void
+     */
     public function show($message)
     {
         $header = new ViewUserHeader();

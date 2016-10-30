@@ -2,8 +2,15 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ MOdelUser class CRUD user data in database.
+*/
 class ModelUser
 {
+
+    /**
+     * Select a list of all users data
+     */
     public function getAllUsers()
     {
         $list = array();
@@ -14,7 +21,9 @@ class ModelUser
         return $rows;
     }
     /**
-     * @param int $userId [Get user data from id]
+     * Select user data with specific id
+     * @param int $userId
+     * @return false if empty or array if true
      */
     public function getUser($userId)
     {
@@ -33,7 +42,11 @@ class ModelUser
             return $row[0];
         }
     }
-
+    /**
+     * Delete user with specific id
+     * @param int $userId
+     * @return  array $result
+     */
     public function deleteUser($userId)
     {
         $userId['id'] = !empty($userId['id']) ? (int) $userId['id'] : 0;
@@ -48,7 +61,11 @@ class ModelUser
 
         return $result;
     }
-
+    /**
+     * Delete user with specific id
+     * @param int $userId
+     * @return  array $result
+     */
     public function updatePassword($userPasswords)
     {
         $userPasswords['id'] = !empty($userPasswords['id']) ? (int) $userPasswords['id'] : 0;
@@ -88,7 +105,11 @@ class ModelUser
 
         return $result;
     }
-
+    /**
+     * Create or update user
+     * @param  array $userData
+     * @return array $result
+     */
     public function saveUser($userData)
     {
         $userData['id'] = !empty($userData['id']) ? (int) $userData['id'] : 0;

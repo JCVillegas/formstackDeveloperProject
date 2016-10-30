@@ -2,8 +2,14 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View html header class
+*/
 class ViewUserHeader
 {
+    /**
+     * Shows header
+     */
     public function show()
     {
         $header = '<html>';

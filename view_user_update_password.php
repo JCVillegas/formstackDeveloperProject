@@ -2,8 +2,17 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View user update password class
+*/
 class ViewUserUpdatePassword
 {
+    /**
+     * Shows user update password form
+     * @param int id
+     * @param string $error
+     * @return void
+     */
     public function show($id, $error = '')
     {
         $header = new ViewUserHeader();

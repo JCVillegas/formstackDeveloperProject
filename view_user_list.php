@@ -2,8 +2,16 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View list of users class
+*/
 class ViewUserList
 {
+
+    /**
+     * @param  array list
+     * @return void
+     */
     public function show($list)
     {
         $header = new ViewUserHeader();

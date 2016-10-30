@@ -2,8 +2,16 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View confirmation class to delete user
+*/
 class ViewUserDelete
 {
+    /**
+     * Shows Header, confirmation and footer
+     * @param int $id
+     * @return void
+     */
     public function show($id)
     {
         $header = new ViewUserHeader();

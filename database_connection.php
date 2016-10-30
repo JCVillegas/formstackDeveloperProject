@@ -2,12 +2,17 @@
 
 namespace JCVillegas\DevProject;
 
+/*
+*   @ Database class
+*/
 class Database
 {
     private $databaseHandler;
     private $error;
     private $sql;
-
+    /**
+    *   @ Class database constructor
+    */
     public function __construct()
     {
         $dataSource = 'mysql:host='.DatabaseConfig::DB_HOST.';dbname='.DatabaseConfig::DB_NAME;
@@ -24,22 +29,36 @@ class Database
             $this->error = $e->getMessage();
         }
     }
-
+    /**
+     * @param  string $query
+     * @return void
+     */
     public function query($query)
     {
         $this->sql = $this->databaseHandler->prepare($query);
     }
-
+    /**
+     * @param  $param
+     * @param  $value
+     * @param  [type]
+     * @return void
+     */
     public function bind($param, $value, $type)
     {
         $this->sql->bindValue($param, $value, $type);
     }
-
+    /**
+     * @param  string $query
+     * @return void
+     */
     public function execute()
     {
         return $this->sql->execute();
     }
-
+    /**
+     * @param  string $query
+     * @return void
+     */
     public function resultSet()
     {
         $this->execute();

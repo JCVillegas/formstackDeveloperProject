@@ -2,28 +2,39 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ User controller class
+*/
 class ControllerUser
 {
     private $model;
-
+    /**
+     *  @ Class constructor.
+     */
     public function __construct()
     {
         $this->model = new modelUser();
     }
-
+    /**
+     *  @ View a form to create user.
+     */
     public function createUser()
     {
         $view = new ViewUserEdit();
         $view->show();
     }
-
+    /**
+     *  @ View a list of  all users.
+     */
     public function readUsers()
     {
         $view = new ViewUserList();
         $list = $this->model->getAllUsers();
         $view->show($list);
     }
-
+    /**
+     *  @ Update user using id.
+     */
     public function updateUser()
     {
         $view = new ViewUserEdit();
@@ -36,13 +47,17 @@ class ControllerUser
             $view->show('There was an error.');
         }
     }
-
+    /**
+     *  @ View change password form.
+     */
     public function updatePassword()
     {
         $view = new viewUserUpdatePassword();
         $view->show($_GET);
     }
-
+    /**
+     *  @ Update  user password with id.
+     */
     public function savePassword()
     {
         $message = '';
@@ -64,13 +79,17 @@ class ControllerUser
             $view->show($_POST, $error);
         }
     }
-
+    /**
+     *  @ View confirm message to delete user.
+     */
     public function confirmDeleteUser()
     {
         $view = new viewUserDelete();
         $view->show($_GET);
     }
-
+    /**
+     *  @ Delete user.
+     */
     public function deleteUser()
     {
         $message = '';
@@ -89,7 +108,9 @@ class ControllerUser
             $view->show('There was an error: '.$message);
         }
     }
-
+    /**
+     *  @ Update or create user.
+     */
     public function saveUser()
     {
         $updateForm=!empty($_POST['updateForm']);

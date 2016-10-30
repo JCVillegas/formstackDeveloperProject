@@ -2,8 +2,19 @@
 
 namespace JCVillegas\DevProject;
 
+/**
+*   @ View user edit class to change user data
+*/
 class ViewUserEdit
 {
+
+    /**
+     * Shows Header, user edit form and footer
+     * @param array $userData
+     * @param string $error
+     * @param boolean $update
+     * @return void
+     */
     public function show($userData = array(), $error = '', $update = false)
     {
         $header = new ViewUserHeader();
