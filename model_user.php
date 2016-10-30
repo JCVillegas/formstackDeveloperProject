@@ -7,6 +7,14 @@ namespace JCVillegas\DevProject;
 */
 class ModelUser
 {
+    private $database;
+    /**
+     * Select a list of all users data
+     */
+    function __construct($database)
+    {
+        $this->database=$database;
+    }
 
     /**
      * Select a list of all users data
@@ -14,10 +22,8 @@ class ModelUser
     public function getAllUsers()
     {
         $list = array();
-        $database = new Database();
-        $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE);
-        $rows = $database->resultset();
-
+        $this->database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE);
+        $rows = $this->database->resultset();
         return $rows;
     }
     /**
@@ -32,10 +38,10 @@ class ModelUser
             return false;
         }
 
-        $database = new Database();
-        $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
-        $row = $database->resultset();
+        
+        $this->database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
+        $this->database->bind(':id', $userId['id'], \PDO::PARAM_INT);
+        $row = $this->database->resultset();
         if (empty($row)) {
             return false;
         } else {
@@ -53,11 +59,10 @@ class ModelUser
         if ($userId['id'] == 0) {
             throw new \Exception('Incorrect user id.');
         }
-
-        $database = new Database();
-        $database->query('DELETE FROM '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
-        $result = $database->execute();
+        
+        $this->database->query('DELETE FROM '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
+        $this->database->bind(':id', $userId['id'], \PDO::PARAM_INT);
+        $result = $this->database->execute();
 
         return $result;
     }
@@ -86,22 +91,22 @@ class ModelUser
             throw new \Exception('New passwords do not match.');
         }
 
-        $database = new database();
-        $database->query('SELECT Password FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
-        $database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
-        $row = $database->resultset();
+        
+        $this->database->query('SELECT Password FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
+        $this->database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
+        $row = $this->database->resultset();
 
         if (empty($row[0]['Password']) || !password_verify($userPasswords['currentPassword'], $row[0]['Password'])) {
             throw new \Exception('Invalid current password.');
         }
 
         $userPasswords['newPassword1'] = password_hash($userPasswords['newPassword1'], PASSWORD_DEFAULT);
-        $database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Password=:Password WHERE id=:id');
+        $this->database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Password=:Password WHERE id=:id');
 
-        $database->bind(':Password', $userPasswords['newPassword1'], \PDO::PARAM_STR);
-        $database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
+        $this->database->bind(':Password', $userPasswords['newPassword1'], \PDO::PARAM_STR);
+        $this->database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
 
-        $result = $database->execute();
+        $result = $this->database->execute();
 
         return $result;
     }
@@ -122,12 +127,12 @@ class ModelUser
             throw new \Exception('Incomplete user data.');
         }
 
-        $database = new Database();
+        
 
         if (empty($userData['id'])) {
-            $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
-            $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
-            $row = $database->resultset();
+            $this->database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
+            $this->database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+            $row = $this->database->resultset();
 
             if (!empty($row)) {
                 throw new \Exception('Cannot create user, email already exists.');
@@ -140,33 +145,33 @@ class ModelUser
                 }
 
                 $userData['Password'] = password_hash($userData['Password'], PASSWORD_DEFAULT);
-                $database->query('INSERT INTO  '.DatabaseConfig::DB_TABLE.' (Email,FirstName,LastName,Password) 
+                $this->database->query('INSERT INTO  '.DatabaseConfig::DB_TABLE.' (Email,FirstName,LastName,Password) 
                   VALUES (:Email,:FirstName,:LastName,:Password)');
 
-                $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
-                $database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
-                $database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
-                $database->bind(':Password', $userData['Password'], \PDO::PARAM_STR);
+                $this->database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+                $this->database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
+                $this->database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
+                $this->database->bind(':Password', $userData['Password'], \PDO::PARAM_STR);
 
-                $result = $database->execute();
+                $result = $this->database->execute();
 
                 return $result;
             }
         } else {
-            $database->query('SELECT id FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
-            $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
-            $row = $database->resultset();
+            $this->database->query('SELECT id FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
+            $this->database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+            $row = $this->database->resultset();
 
             if (empty($row[0]['id']) || (!empty($row) && $userData['id'] == $row[0]['id'])) {
-                $database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,
+                $this->database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Email=:Email,FirstName=:FirstName,
                   LastName=:LastName WHERE id=:id');
 
-                $database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
-                $database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
-                $database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
-                $database->bind(':id', $userData['id'], \PDO::PARAM_INT);
+                $this->database->bind(':Email', $userData['Email'], \PDO::PARAM_STR);
+                $this->database->bind(':FirstName', $userData['FirstName'], \PDO::PARAM_STR);
+                $this->database->bind(':LastName', $userData['LastName'], \PDO::PARAM_STR);
+                $this->database->bind(':id', $userData['id'], \PDO::PARAM_INT);
 
-                $result = $database->execute();
+                $result = $this->database->execute();
 
                 return $result;
             } else {

@@ -11,9 +11,9 @@ class ControllerUser
     /**
      *  @ Class constructor.
      */
-    public function __construct()
+    public function __construct($model)
     {
-        $this->model = new modelUser();
+        $this->model = $model;
     }
     /**
      *  @ View a form to create user.

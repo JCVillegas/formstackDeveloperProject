@@ -8,7 +8,6 @@ namespace JCVillegas\DevProject;
 class Database
 {
     private $databaseHandler;
-    private $error;
     private $sql;
     /**
     *   @ Class database constructor
@@ -22,14 +21,10 @@ class Database
             \PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION,
             \PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8',
         );
-
-        try {
-            $this->databaseHandler = new \PDO($dataSource, DatabaseConfig::DB_USER, DatabaseConfig::DB_PASS, $options);
-        } catch (PDOException $e) {
-            $this->error = $e->getMessage();
-        }
+        $this->databaseHandler = new \PDO($dataSource, DatabaseConfig::DB_USER, DatabaseConfig::DB_PASS, $options);
     }
     /**
+     * Receives a query
      * @param  string $query
      * @return void
      */
@@ -38,9 +33,10 @@ class Database
         $this->sql = $this->databaseHandler->prepare($query);
     }
     /**
-     * @param  $param
-     * @param  $value
-     * @param  [type]
+     *
+     * @param  mixed $param Identifier
+     * @param  mixed $value Variable name
+     * @param  mixed $type  Data type
      * @return void
      */
     public function bind($param, $value, $type)
@@ -48,6 +44,7 @@ class Database
         $this->sql->bindValue($param, $value, $type);
     }
     /**
+     * Executes query
      * @param  string $query
      * @return void
      */
@@ -56,8 +53,8 @@ class Database
         return $this->sql->execute();
     }
     /**
-     * @param  string $query
-     * @return void
+     * Returns database result
+     * @return array
      */
     public function resultSet()
     {
