@@ -4,8 +4,8 @@ namespace JCVillegas\DevProject;
 
 class ViewUserEdit
 {
-    public function show($userData = array(), $error = '')
-    {
+    public function show($userData = array(), $error = '',$update=false)
+    {   
         $header = new ViewUserHeader();
         $footer = new ViewUserFooter();
 
@@ -22,9 +22,15 @@ class ViewUserEdit
         $createUserForm .= '<br>';
         $createUserForm .= "LastName: <input type='text' name='LastName' value='".htmlentities($lastNameValue)."'>";
         $createUserForm .= '<br>';
-        $createUserForm .= "Password: <input type='password' name='Password' value='".htmlentities($password)."'>";
+        if (!$update){
+            $createUserForm .= "Password: <input type='password' name='Password' value='".htmlentities($password)."'>";
+        }
+        else{
+            $createUserForm .= "<input type='hidden' name='updateForm' value='1'> <br>";
+        }
         $createUserForm .= '<br>';
         $createUserForm .= "<input type='hidden' name='id' value='".htmlentities($id)."'> <br>";
+
         $createUserForm .= "<input type='submit' name='Save user'> </input>";
         $createUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $createUserForm .= '</form>';

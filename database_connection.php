@@ -2,7 +2,7 @@
 
 namespace JCVillegas\DevProject;
 
-class DatabaseConnection
+class Database
 {
     private $databaseHandler;
     private $error;

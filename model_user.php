@@ -7,7 +7,7 @@ class ModelUser
     public function getAllUsers()
     {
         $list = array();
-        $database = new database();
+        $database = new Database();
         $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE);
         $rows = $database->resultset();
 
@@ -23,7 +23,7 @@ class ModelUser
             return false;
         }
 
-        $database = new database();
+        $database = new Database();
         $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
         $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
         $row = $database->resultset();
@@ -41,7 +41,7 @@ class ModelUser
             throw new \Exception('Incorrect user id.');
         }
 
-        $database = new database();
+        $database = new Database();
         $database->query('DELETE FROM '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
         $database->bind(':id', $userId['id'], \PDO::PARAM_INT);
         $result = $database->execute();
@@ -90,19 +90,18 @@ class ModelUser
     }
 
     public function saveUser($userData)
-    {
+    {   
         $userData['id'] = !empty($userData['id']) ? (int) $userData['id'] : 0;
         $userData['Email'] = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $userData['FirstName'] = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
         $userData['LastName'] = !empty($userData['LastName']) ? trim(substr($userData['LastName'], 0, 100)) : '';
         $userData['Password'] = !empty($userData['Password']) ? trim(substr($userData['Password'], 0, 100)) : '';
 
-        if ($userData['Email'] == '' || $userData['FirstName'] == '' || $userData['LastName'] == '' ||
-          $userData['Password'] == '') {
+        if ($userData['Email'] == '' || $userData['FirstName'] == '' || $userData['LastName'] == '') {
             throw new \Exception('Incomplete user data.');
         }
 
-        $database = new database();
+        $database = new Database();
 
         if (empty($userData['id'])) {
             $database->query('SELECT * FROM  '.DatabaseConfig::DB_TABLE.' WHERE Email=:Email');
@@ -112,6 +111,13 @@ class ModelUser
             if (!empty($row)) {
                 throw new \Exception('Cannot create user, email already exists.');
             } else {
+                
+
+             if($userData['Password'] == ''){
+               throw new \Exception('Cannot create user, password is missing.');
+
+             }
+
                 $userData['Password'] = password_hash($userData['Password'], PASSWORD_DEFAULT);
                 $database->query('INSERT INTO  '.DatabaseConfig::DB_TABLE.' (Email,FirstName,LastName,Password) 
                   VALUES (:Email,:FirstName,:LastName,:Password)');

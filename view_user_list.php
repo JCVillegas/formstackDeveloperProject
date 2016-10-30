@@ -26,11 +26,11 @@ class ViewUserList
             $tableList .= '<td>'.htmlentities($value['Email']).'</td>';
             $tableList .= '<td>'.htmlentities($value['FirstName']).'</td>';
             $tableList .= '<td>'.htmlentities($value['LastName']).'</td>';
-            $tableList .= '<td><a href="index.php?operation=UpdatePassword&id='.urlencode($value['id']).'">update</a>';
+            $tableList .= '<td><a href="index.php?operation=UpdatePassword&id='.urlencode($value['id']).'">update password</a>';
             $tableList .= '</td>';
-            $tableList .= '<td><a href="index.php?operation=UpdateUser&id='.urlencode($value['id']).'">edit</a></td>';
+            $tableList .= '<td><a href="index.php?operation=UpdateUser&id='.urlencode($value['id']).'">edit user</a></td>';
             $tableList .= '<td><a href="index.php?operation=ConfirmDeleteUser&id='.urlencode($value['id']).'">';
-            $tableList .= 'delete</a>';
+            $tableList .= 'delete user</a>';
             $tableList .= '</td>';
             $tableList .= '</tr>';
         }
