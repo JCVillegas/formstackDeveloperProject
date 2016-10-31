@@ -8,6 +8,21 @@ namespace JCVillegas\DevProject;
 class ViewUserEdit
 {
 
+    private $header;
+    private $footer;
+
+    /**
+     *  Class constructor
+     *  @param   $header  View of the header
+     *  @param   $footer  View of the footer
+     */
+    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    {
+            
+        $this->header=$header;
+        $this->footer=$footer;
+    }
+
     /**
      * Shows Header, user edit form and footer
      * @param array $userData
@@ -17,9 +32,7 @@ class ViewUserEdit
      */
     public function show($userData = array(), $error = '', $update = false)
     {
-        $header = new ViewUserHeader();
-        $footer = new ViewUserFooter();
-
+        
         $emailValue = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $firstNameValue = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
         $lastNameValue = !empty($userData['LastName']) ? trim(substr($userData['LastName'], 0, 100)) : '';
@@ -45,11 +58,11 @@ class ViewUserEdit
         $createUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $createUserForm .= '</form>';
 
-        $header->show();
+        $this->header->show();
         if (!empty($error)) {
             echo $error.'<br>';
         }
         echo $createUserForm;
-        $footer->show();
+        $this->footer->show();
     }
 }

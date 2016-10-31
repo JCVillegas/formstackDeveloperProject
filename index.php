@@ -16,7 +16,10 @@ require_once 'view_user_footer.php';
 
 $databaseConnection= new JCVillegas\DevProject\Database();
 $model= new JCVillegas\DevProject\ModelUser($databaseConnection);
-$controller = new JCVillegas\DevProject\ControllerUser($model);
+$header=new JCVillegas\DevProject\ViewUserHeader();
+$footer=new JCVillegas\DevProject\ViewUserFooter();
+$controller = new JCVillegas\DevProject\ControllerUser($model, $header, $footer);
+
 
 $operation = !empty($_GET['operation']) ? trim($_GET['operation']) : '';
 

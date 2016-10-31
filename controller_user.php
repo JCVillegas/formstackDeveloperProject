@@ -8,19 +8,23 @@ namespace JCVillegas\DevProject;
 class ControllerUser
 {
     private $model;
+    private $header;
+    private $footer;
     /**
      *  @ Class constructor.
      */
-    public function __construct($model)
+    public function __construct($model, ViewUserHeader $header, ViewUserFooter $footer)
     {
         $this->model = $model;
+        $this->header = $header;
+        $this->footer = $footer;
     }
     /**
      *  @ View a form to create user.
      */
     public function createUser()
     {
-        $view = new ViewUserEdit();
+        $view = new ViewUserEdit($this->header, $this->footer);
         $view->show();
     }
     /**
@@ -28,7 +32,7 @@ class ControllerUser
      */
     public function readUsers()
     {
-        $view = new ViewUserList();
+        $view = new ViewUserList($this->header, $this->footer);
         $list = $this->model->getAllUsers();
         $view->show($list);
     }
@@ -37,13 +41,13 @@ class ControllerUser
      */
     public function updateUser()
     {
-        $view = new ViewUserEdit();
+        $view = new ViewUserEdit($this->header, $this->footer);
         $userData = $this->model->getUser($_GET);
 
         if ($userData) {
             $view->show($userData, '', true);
         } else {
-            $view = new viewUserMessage();
+            $view = new viewUserMessage($this->header, $this->footer);
             $view->show('There was an error.');
         }
     }
@@ -52,7 +56,7 @@ class ControllerUser
      */
     public function updatePassword()
     {
-        $view = new viewUserUpdatePassword();
+        $view = new viewUserUpdatePassword($this->header, $this->footer);
         $view->show($_GET);
     }
     /**
@@ -68,14 +72,14 @@ class ControllerUser
             $message = $e->getMessage();
         }
 
-        $view = new viewUserMessage();
+        $view = new viewUserMessage($this->header, $this->footer);
 
         if (empty($message)) {
             $view->show('The user password has been updated.');
         } else {
             $error = 'There was an error: '.$message;
 
-            $view = new viewUserUpdatePassword();
+            $view = new viewUserUpdatePassword($this->header, $this->footer);
             $view->show($_POST, $error);
         }
     }
@@ -84,7 +88,7 @@ class ControllerUser
      */
     public function confirmDeleteUser()
     {
-        $view = new viewUserDelete();
+        $view = new viewUserDelete($this->header, $this->footer);
         $view->show($_GET);
     }
     /**
@@ -100,7 +104,7 @@ class ControllerUser
             $message = $e->getMessage();
         }
 
-        $view = new viewUserMessage();
+        $view = new viewUserMessage($this->header, $this->footer);
 
         if (empty($message)) {
             $view->show('The user has been deleted.');
@@ -122,14 +126,14 @@ class ControllerUser
         } catch (\Exception $e) {
             $message = $e->getMessage();
         }
-
-        $view = new viewUserMessage();
+        
+        $view = new viewUserMessage($this->header, $this->footer);
 
         if (empty($message)) {
             $view->show('The user has been saved.');
         } else {
             $error = 'There was an error: '.$message;
-            $view = new viewUserEdit();
+            $view = new viewUserEdit($this->header, $this->footer);
             $view->show($_POST, $error, $updateForm);
         }
     }

@@ -7,6 +7,21 @@ namespace JCVillegas\DevProject;
 */
 class ViewUserUpdatePassword
 {
+    
+    private $header;
+    private $footer;
+    
+    /**
+     *  Class constructor
+     *  @param   $header  View of the header
+     *  @param   $footer  View of the footer
+     */
+    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    {
+        $this->header = $header;
+        $this->footer = $footer;
+    }
+
     /**
      * Shows user update password form
      * @param int id
@@ -15,9 +30,7 @@ class ViewUserUpdatePassword
      */
     public function show($id, $error = '')
     {
-        $header = new ViewUserHeader();
-        $footer = new ViewUserFooter();
-
+        
         $updatepasswordUserForm = "<form action='index.php?operation=SavePassword' method='post'>";
         $updatepasswordUserForm .= "Type current password: <input type='password' name='currentPassword'> <br>";
         $updatepasswordUserForm .= "Type new password : <input type='password' name='newPassword1'><br>";
@@ -27,7 +40,7 @@ class ViewUserUpdatePassword
         $updatepasswordUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $updatepasswordUserForm .= '</form>';
 
-        $header->show();
+        $this->header->show();
 
         if (!empty($error)) {
             echo $error.'<br>';
@@ -35,6 +48,6 @@ class ViewUserUpdatePassword
 
         echo $updatepasswordUserForm;
 
-        $footer->show();
+        $this->footer->show();
     }
 }

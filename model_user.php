@@ -11,7 +11,7 @@ class ModelUser
     /**
      * Select a list of all users data
      */
-    function __construct($database)
+    public function __construct($database)
     {
         $this->database=$database;
     }
