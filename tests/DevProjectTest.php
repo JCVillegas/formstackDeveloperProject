@@ -206,22 +206,5 @@ class DevProjectTest extends \PHPUnit_Framework_TestCase
     	$resultUser=$model->saveUser($post);     	
     }
 
-    /**
-     * Model test to confirm delete user.
-     */
-    
-    public function testDeleteUserConfirm(){    	
-    	$mock=$this->createMock(\JCVillegas\DevProject\Database::class);
-    	$mock->method('query')->willReturn(true);
-    	$mock->method('bind')->willReturn(true);
-    	$mock->method('execute')->willReturn(true);
-    	$mock->method('resultset')->willReturn(array(array('id'=>1)));
-    	$model = new \JCVillegas\DevProject\ModelUser($mock);
-    	$post=array('id'=>1);
-    	$resultUser=$model->confirmDeleteUser($post);    	
-    	$this->assertTrue($resultUser);	
-    }
-
-
 
 }

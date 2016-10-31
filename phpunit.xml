@@ -5,4 +5,19 @@
             <directory>tests/</directory>
         </testsuite>
     </testsuites>
+    <filter>
+  <whitelist processUncoveredFilesFromWhitelist="true">
+    <directory suffix=".php"></directory>
+    <file>database_connection.php</file>
+    <file>model_user.php</file> 
+    <file>controller_user.php</file>     
+    <file>view_user_delete.php</file>
+    <file>view_user_edit.php</file> 
+    <file>view_user_footer.php</file> 
+    <file>view_user_header.php</file> 
+    <file>view_user_list.php</file> 
+    <file>view_user_message.php</file> 
+    <file>view_update_password.php</file>           
+      </whitelist>
+</filter>
 </phpunit>
