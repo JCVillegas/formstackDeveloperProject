@@ -12,8 +12,8 @@ class ViewUserFooter
      */
     public function show()
     {
-        $footer = '</body>';
-        $footer = '</html>';
+        $footer= '</body>';
+        $footer.= '</html>';
 
         echo $footer;
     }

@@ -1,12 +1,11 @@
 <?php
 
 
-
 require_once('model_user.php');
 require_once('database_config.php');
 require_once('database_connection.php');
 
-class DevProjectTest extends \PHPUnit_Framework_TestCase
+class ModelUserTest extends \PHPUnit_Framework_TestCase
 {
     
 
@@ -16,6 +15,23 @@ class DevProjectTest extends \PHPUnit_Framework_TestCase
     	$model = new \JCVillegas\DevProject\ModelUser($database);
     	$readUser=$model->getAllUsers();
     	$this->assertGreaterThan(0,count($readUser));
+
+    }
+
+    /**
+     * Model test to display  user by id.
+     */
+    public function testReadUser(){
+
+    	$mock=$this->createMock(\JCVillegas\DevProject\Database::class);
+    	$mock->method('query')->willReturn(true);
+    	$mock->method('bind')->willReturn(true);
+    	$mock->method('execute')->willReturn(true);
+    	$mock->method('resultset')->willReturn(array(array('id'=>1)));
+    	$model = new \JCVillegas\DevProject\ModelUser($mock);
+    	$post=array('id'=>1);
+    	$resultUser=$model->getUser($post);    	
+    	
 
     }
 

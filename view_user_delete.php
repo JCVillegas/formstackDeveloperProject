@@ -7,19 +7,19 @@ namespace JCVillegas\DevProject;
 */
 class ViewUserDelete
 {
-    private $header;
-    private $footer;
+    private $viewHeader;
+    private $viewFooter;
 
     /**
      *  Class constructor
      *  @param   $header  View of the header
      *  @param   $footer  View of the footer
      */
-    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    public function __construct(ViewUserHeader $viewHeader, ViewUserFooter $viewFooter)
     {
             
-        $this->header=$header;
-        $this->footer=$footer;
+        $this->viewHeader=$viewHeader;
+        $this->viewFooter=$viewFooter;
 
     }
 
@@ -40,8 +40,8 @@ class ViewUserDelete
         $tableConfirm .= '<td><a href="index.php?operation=ReadUsers">No</a></td>';
         $tableConfirm .= '</tr>';
         $tableConfirm .= '</table>';
-        $this->header->show();
+        $this->viewHeader->show();
         echo $tableConfirm;
-        $this->footer->show();
+        $this->viewFooter->show();
     }
 }

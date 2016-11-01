@@ -8,18 +8,18 @@ namespace JCVillegas\DevProject;
 class ViewUserList
 {
 
-    private $header;
-    private $footer;
+    private $viewHeader;
+    private $viewFooter;
     
     /**
      *  Class constructor
      *  @param   $header  View of the header
      *  @param   $footer  View of the footer
      */
-    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    public function __construct(ViewUserHeader $viewHeader, ViewUserFooter $viewFooter)
     {
-        $this->header = $header;
-        $this->footer = $footer;
+        $this->viewHeader = $viewHeader;
+        $this->viewFooter = $viewFooter;
     }
 
     /**
@@ -28,9 +28,7 @@ class ViewUserList
      */
     public function show($list)
     {
-        //$header = new ViewUserHeader();
-        $footer = new ViewUserFooter();
-
+        
         $tableList = '<table border=1>';
         $tableList .= '<tr>';
         $tableList .= '<td>ID</td>';
@@ -60,7 +58,7 @@ class ViewUserList
 
         $tableList .= '</table>';
 
-        $this->header->show();
+        $this->viewHeader->show();
 
         if (empty($list)) {
             echo 'No data yet.';
@@ -69,6 +67,6 @@ class ViewUserList
             echo $tableList;
         }
 
-        $this->footer->show();
+        $this->viewFooter->show();
     }
 }

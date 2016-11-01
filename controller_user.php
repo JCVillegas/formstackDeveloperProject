@@ -8,47 +8,63 @@ namespace JCVillegas\DevProject;
 class ControllerUser
 {
     private $model;
-    private $header;
-    private $footer;
+    private $viewHeader;
+    private $viewFooter;
+    private $viewList;
+    private $viewEdit;
+    private $viewDelete;
+    private $viewMessage;
+    private $viewPassword;
     /**
      *  @ Class constructor.
      */
-    public function __construct($model, ViewUserHeader $header, ViewUserFooter $footer)
-    {
-        $this->model = $model;
-        $this->header = $header;
-        $this->footer = $footer;
+    public function __construct(
+        ModelUser $model,
+        ViewUserHeader $viewHeader,
+        ViewUserFooter $viewFooter,
+        ViewUserList $viewList,
+        ViewUserEdit $viewEdit,
+        ViewUserDelete $viewDelete,
+        ViewUserMessage $viewMessage,
+        ViewUserUpdatePassword $viewPassword
+    ) {
+    
+        $this->model =  $model;
+        $this->viewHeader = $viewHeader;
+        $this->viewFooter = $viewFooter;
+        $this->viewList = $viewList;
+        $this->viewEdit = $viewEdit;
+        $this->viewDelete = $viewDelete;
+        $this->viewMessage = $viewMessage;
+        $this->viewPassword = $viewPassword;
     }
     /**
      *  @ View a form to create user.
      */
     public function createUser()
     {
-        $view = new ViewUserEdit($this->header, $this->footer);
-        $view->show();
+        $this->viewEdit->show();
     }
     /**
      *  @ View a list of  all users.
      */
     public function readUsers()
     {
-        $view = new ViewUserList($this->header, $this->footer);
         $list = $this->model->getAllUsers();
-        $view->show($list);
+        $this->viewList->show($list);
     }
     /**
      *  @ Update user using id.
      */
     public function updateUser()
     {
-        $view = new ViewUserEdit($this->header, $this->footer);
+        
         $userData = $this->model->getUser($_GET);
 
         if ($userData) {
-            $view->show($userData, '', true);
+            $this->viewEdit->show($userData, '', true);
         } else {
-            $view = new viewUserMessage($this->header, $this->footer);
-            $view->show('There was an error.');
+            $this->viewMessage->show('There was an error.');
         }
     }
     /**
@@ -56,8 +72,7 @@ class ControllerUser
      */
     public function updatePassword()
     {
-        $view = new viewUserUpdatePassword($this->header, $this->footer);
-        $view->show($_GET);
+        $this->viewPassword->show($_GET);
     }
     /**
      *  @ Update  user password with id.
@@ -72,15 +87,13 @@ class ControllerUser
             $message = $e->getMessage();
         }
 
-        $view = new viewUserMessage($this->header, $this->footer);
-
+        
         if (empty($message)) {
-            $view->show('The user password has been updated.');
+            $this->viewMessage->show('The user password has been updated.');
         } else {
             $error = 'There was an error: '.$message;
 
-            $view = new viewUserUpdatePassword($this->header, $this->footer);
-            $view->show($_POST, $error);
+            $this->viewPassword->show($_POST, $error);
         }
     }
     /**
@@ -88,8 +101,7 @@ class ControllerUser
      */
     public function confirmDeleteUser()
     {
-        $view = new viewUserDelete($this->header, $this->footer);
-        $view->show($_GET);
+        $this->viewDelete->show($_GET);
     }
     /**
      *  @ Delete user.
@@ -103,13 +115,12 @@ class ControllerUser
         } catch (\Exception $e) {
             $message = $e->getMessage();
         }
-
-        $view = new viewUserMessage($this->header, $this->footer);
+        
 
         if (empty($message)) {
-            $view->show('The user has been deleted.');
+            $this->viewMessage->show('The user has been deleted.');
         } else {
-            $view->show('There was an error: '.$message);
+            $this->viewMessage->show('There was an error: '.$message);
         }
     }
     /**
@@ -126,15 +137,13 @@ class ControllerUser
         } catch (\Exception $e) {
             $message = $e->getMessage();
         }
-        
-        $view = new viewUserMessage($this->header, $this->footer);
+       
 
         if (empty($message)) {
-            $view->show('The user has been saved.');
+            $this->viewMessage->show('The user has been saved.');
         } else {
             $error = 'There was an error: '.$message;
-            $view = new viewUserEdit($this->header, $this->footer);
-            $view->show($_POST, $error, $updateForm);
+            $this->viewEdit->show($_POST, $error, $updateForm);
         }
     }
 }

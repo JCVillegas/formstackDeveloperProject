@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<phpunit>
-    <php>
-        <var name="DB_DSN" value="mysql:dbname=myguestbook;host=testbox.dev" />
-        <var name="DB_USER" value="my_app" />
-        <var name="DB_PASSWD" value="secret" />
-        <var name="DB_DBNAME" value="users" />
-    </php>
-</phpunit>

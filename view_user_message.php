@@ -8,7 +8,7 @@ namespace JCVillegas\DevProject;
 class ViewUserMessage
 {
     
-    private $header;
+    private $viewHeader;
     private $footer;
 
     /**
@@ -16,10 +16,10 @@ class ViewUserMessage
      *  @param   $header  View of the header
      *  @param   $footer  View of the footer
      */
-    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    public function __construct(ViewUserHeader $viewHeader, ViewUserFooter $viewFooter)
     {
-        $this->header = $header;
-        $this->footer = $footer;
+        $this->viewHeader = $viewHeader;
+        $this->viewFooter = $viewFooter;
     }
 
     /**
@@ -29,9 +29,9 @@ class ViewUserMessage
     public function show($message)
     {
 
-        $this->header->show();
+        $this->viewHeader->show();
         echo $message;
         echo "<br><a href='index.php?operation=ReadUsers'>Continue to list users</a>";
-        $this->footer->show();
+        $this->viewFooter->show();
     }
 }

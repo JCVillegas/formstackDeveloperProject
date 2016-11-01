@@ -8,18 +8,18 @@ namespace JCVillegas\DevProject;
 class ViewUserUpdatePassword
 {
     
-    private $header;
-    private $footer;
+    private $viewHeader;
+    private $viewFooter;
     
     /**
      *  Class constructor
      *  @param   $header  View of the header
      *  @param   $footer  View of the footer
      */
-    public function __construct(ViewUserHeader $header, ViewUserFooter $footer)
+    public function __construct(ViewUserHeader $viewHeader, ViewUserFooter $viewFooter)
     {
-        $this->header = $header;
-        $this->footer = $footer;
+        $this->viewHeader = $viewHeader;
+        $this->viewFooter = $viewFooter;
     }
 
     /**
@@ -40,7 +40,7 @@ class ViewUserUpdatePassword
         $updatepasswordUserForm .= "<br><a href='index.php?operation=ReadUsers'>Go back to list users</a>";
         $updatepasswordUserForm .= '</form>';
 
-        $this->header->show();
+        $this->viewHeader->show();
 
         if (!empty($error)) {
             echo $error.'<br>';
@@ -48,6 +48,6 @@ class ViewUserUpdatePassword
 
         echo $updatepasswordUserForm;
 
-        $this->footer->show();
+        $this->viewFooter->show();
     }
 }

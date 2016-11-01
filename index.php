@@ -16,9 +16,25 @@ require_once 'view_user_footer.php';
 
 $databaseConnection= new JCVillegas\DevProject\Database();
 $model= new JCVillegas\DevProject\ModelUser($databaseConnection);
-$header=new JCVillegas\DevProject\ViewUserHeader();
-$footer=new JCVillegas\DevProject\ViewUserFooter();
-$controller = new JCVillegas\DevProject\ControllerUser($model, $header, $footer);
+$viewHeader=new JCVillegas\DevProject\ViewUserHeader();
+$viewFooter=new JCVillegas\DevProject\ViewUserFooter();
+$viewList=new JCVillegas\DevProject\ViewUserList($viewHeader, $viewFooter);
+$viewEdit=new JCVillegas\DevProject\ViewUserEdit($viewHeader, $viewFooter);
+$viewDelete=new JCVillegas\DevProject\ViewUserDelete($viewHeader, $viewFooter);
+$viewMessage=new JCVillegas\DevProject\ViewUserMessage($viewHeader, $viewFooter);
+$viewPassword=new JCVillegas\DevProject\ViewUserUpdatePassword($viewHeader, $viewFooter);
+
+
+$controller = new JCVillegas\DevProject\ControllerUser(
+    $model,
+    $viewHeader,
+    $viewFooter,
+    $viewList,
+    $viewEdit,
+    $viewDelete,
+    $viewMessage,
+    $viewPassword
+);
 
 
 $operation = !empty($_GET['operation']) ? trim($_GET['operation']) : '';
