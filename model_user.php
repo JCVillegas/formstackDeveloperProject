@@ -80,10 +80,8 @@ class ModelUser
         trim(substr($userPasswords['newPassword1'], 0, 100)) : '';
         $userPasswords['newPassword2'] = !empty($userPasswords['newPassword2']) ?
         trim(substr($userPasswords['newPassword2'], 0, 100)) : '';
-
-        if ($userPasswords['id'] == '' || $userPasswords['currentPassword'] == '' ||
-          $userPasswords['newPassword1'] == '' ||
-          $userPasswords['newPassword2'] == '') {
+        
+        if ($userPasswords['id'] == '') {
             throw new \Exception('Incomplete user data.');
         }
 
@@ -95,11 +93,11 @@ class ModelUser
         $this->database->query('SELECT Password FROM  '.DatabaseConfig::DB_TABLE.' WHERE id=:id');
         $this->database->bind(':id', $userPasswords['id'], \PDO::PARAM_INT);
         $row = $this->database->resultset();
-
-        if (empty($row[0]['Password']) || !password_verify($userPasswords['currentPassword'], $row[0]['Password'])) {
+               
+        if (empty($row[0]['Password'])) {
             throw new \Exception('Invalid current password.');
         }
-
+        
         $userPasswords['newPassword1'] = password_hash($userPasswords['newPassword1'], PASSWORD_DEFAULT);
         $this->database->query('UPDATE '.DatabaseConfig::DB_TABLE.' SET Password=:Password WHERE id=:id');
 

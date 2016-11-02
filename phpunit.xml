@@ -7,20 +7,23 @@
     </testsuites>
     <filter>
   <whitelist processUncoveredFilesFromWhitelist="true">
-    <directory suffix=".php"></directory>    
-    <file>model_user.php</file>   
-    <file>view_user_header.php</file>  
-    <file>view_user_footer.php</file> 
+    <directory suffix=".php"></directory>
+         
     <file>database_connection.php</file>
-    <file>model_user.php</file> 
-    <file>controller_user.php</file>     
+    <file>model_user.php</file>   
+    <file>controller_user.php</file>       
     <file>view_user_delete.php</file>
     <file>view_user_edit.php</file> 
     <file>view_user_footer.php</file> 
     <file>view_user_header.php</file> 
     <file>view_user_list.php</file> 
     <file>view_user_message.php</file> 
-    <file>view_user_update_password.php</file>               
+    <file>view_user_update_password.php</file> 
+    <exclude>
+      <directory suffix=".php"></directory>
+      <file>database_config.php</file>
+      <file>index.php</file>
+    </exclude>              
       </whitelist>
 </filter>
 </phpunit>

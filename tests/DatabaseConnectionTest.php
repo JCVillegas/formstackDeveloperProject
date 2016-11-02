@@ -17,8 +17,13 @@ class DatabaseConnectionTest extends \PHPUnit_Framework_TestCase
     	$model = new \JCVillegas\DevProject\ModelUser($database);
     	$readUser=$model->getAllUsers();
     	$this->assertGreaterThan(0,count($readUser));
+    	$post=array('id'=>1);
+        $resultUser=$model->getUser($post);
+    	$this->assertGreaterThan(0,count($readUser));
 
-    }    
+    }   
+
+
 
 
 }

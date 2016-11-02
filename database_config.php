@@ -5,6 +5,7 @@ namespace JCVillegas\DevProject;
 /**
 *   @ Database mysql constants class
 */
+
 class DatabaseConfig
 {
     const DB_HOST = 'testbox.dev';
