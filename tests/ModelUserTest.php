@@ -6,20 +6,30 @@ require_once('database_config.php');
 require_once('database_connection.php');
 
 class ModelUserTest extends \PHPUnit_Framework_TestCase
-{
+{   
+
     
+    /**
+     * Model test to get  all users.
+     */
+    public function testReadUsers(){
 
-    public function testConnectDataBase(){
-
-    	$database = new \JCVillegas\DevProject\Database();
-    	$model = new \JCVillegas\DevProject\ModelUser($database);
-    	$readUser=$model->getAllUsers();
-    	$this->assertGreaterThan(0,count($readUser));
+        $mock=$this->createMock(\JCVillegas\DevProject\Database::class);
+        $mock->method('query')->willReturn(true);
+        $mock->method('bind')->willReturn(true);
+        $mock->method('execute')->willReturn(true);
+        $mock->method('resultset')->willReturn(array(
+            array(
+                'id'=>1,'Email'=>'test@jcvillegas.com','FirstName'=>'Juan','LastName'=>'Villegas','Password'=>'password'),
+                'id'=>2,'Email'=>'test2@jcvillegas.com','FirstName'=>'Juan','LastName'=>'Villegas','Password'=>'password'));
+        $model = new \JCVillegas\DevProject\ModelUser($mock);
+        $readUser=$model->getAllUsers();        
+        $this->assertGreaterThan(0,count($mock));
 
     }
 
     /**
-     * Model test to display  user by id.
+     * Model test to get  user by id.
      */
     public function testReadUser(){
 
@@ -30,29 +40,29 @@ class ModelUserTest extends \PHPUnit_Framework_TestCase
     	$mock->method('resultset')->willReturn(array(array('id'=>1)));
     	$model = new \JCVillegas\DevProject\ModelUser($mock);
     	$post=array('id'=>1);
-    	$resultUser=$model->getUser($post);    	
+    	$resultUser=$model->getUser($post); 
+
     	
 
     }
 
     /**
-     * Model test to display all users.
+     * Model test to get wrong user id.
      */
-    public function testReadUsers(){
+    public function testReadUserWrongId(){
 
-    	$mock=$this->createMock(\JCVillegas\DevProject\Database::class);
-    	$mock->method('query')->willReturn(true);
-    	$mock->method('bind')->willReturn(true);
-    	$mock->method('execute')->willReturn(true);
-    	$mock->method('resultset')->willReturn(array(
-    		array(
-    			'id'=>1,'Email'=>'test@jcvillegas.com','FirstName'=>'Juan','LastName'=>'Villegas','Password'=>'password'),
-    			'id'=>2,'Email'=>'test2@jcvillegas.com','FirstName'=>'Juan','LastName'=>'Villegas','Password'=>'password'));
-    	$model = new \JCVillegas\DevProject\ModelUser($mock);
-    	$readUser=$model->getAllUsers();    	
-    	$this->assertGreaterThan(0,count($mock));
+        $mock=$this->createMock(\JCVillegas\DevProject\Database::class);
+        $mock->method('query')->willReturn(true);
+        $mock->method('bind')->willReturn(true);
+        $mock->method('execute')->willReturn(true);
+        $mock->method('resultset')->willReturn(array(array('id'=>1)));
+        $model = new \JCVillegas\DevProject\ModelUser($mock);
+        $post=array('id'=>0);
+        $resultUser=$model->getUser($post);     
+        
 
     }
+    
 
     /**
      * Model test when a new user registers.
@@ -220,6 +230,23 @@ class ModelUserTest extends \PHPUnit_Framework_TestCase
     	$post=array('id'=>0);
     	$this->expectException(\Exception::class);
     	$resultUser=$model->saveUser($post);     	
+    }
+
+
+    /**
+     * Model test to update user password.
+     */
+    
+    public function testUpdateUserPassword(){        
+        $mock=$this->createMock(\JCVillegas\DevProject\Database::class);
+        $mock->method('query')->willReturn(true);
+        $mock->method('bind')->willReturn(true);
+        $mock->method('execute')->willReturn(true);
+        $mock->method('resultset')->willReturn(array());
+        $model = new \JCVillegas\DevProject\ModelUser($mock);
+        $post=array('id'=>3,'Email'=>'test@jcvillegas.com','FirstName'=>'Juan','LastName'=>'Villegas','Password'=>'password');        
+        $resultUser=$model->updatePassword($post);
+        $this->assertTrue($resultUser);         
     }
 
 

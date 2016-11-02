@@ -16,13 +16,12 @@ class ViewUserEdit
      *  @param   $header  View of the header
      *  @param   $footer  View of the footer
      */
-    
-
     public function __construct(ViewUserHeader $viewHeader, ViewUserFooter $viewFooter)
     {
             
         $this->viewHeader=$viewHeader;
         $this->viewFooter=$viewFooter;
+
     }
 
     /**
@@ -34,7 +33,7 @@ class ViewUserEdit
      */
     public function show($userData = array(), $error = '', $update = false)
     {
-        
+       
         $emailValue = !empty($userData['Email']) ? trim(substr($userData['Email'], 0, 100)) : '';
         $firstNameValue = !empty($userData['FirstName']) ? trim(substr($userData['FirstName'], 0, 100)) : '';
         $lastNameValue = !empty($userData['LastName']) ? trim(substr($userData['LastName'], 0, 100)) : '';

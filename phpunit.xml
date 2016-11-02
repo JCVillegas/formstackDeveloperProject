@@ -20,7 +20,7 @@
     <file>view_user_header.php</file> 
     <file>view_user_list.php</file> 
     <file>view_user_message.php</file> 
-    <file>view_update_password.php</file>               
+    <file>view_user_update_password.php</file>               
       </whitelist>
 </filter>
 </phpunit>

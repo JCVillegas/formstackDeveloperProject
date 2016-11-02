@@ -1,5 +1,4 @@
 <?php
-
 namespace JCVillegas\DevProject;
 
 /**
@@ -7,7 +6,6 @@ namespace JCVillegas\DevProject;
 */
 class ViewUserList
 {
-
     private $viewHeader;
     private $viewFooter;
     
@@ -21,7 +19,6 @@ class ViewUserList
         $this->viewHeader = $viewHeader;
         $this->viewFooter = $viewFooter;
     }
-
     /**
      * @param  array list
      * @return void
@@ -39,7 +36,6 @@ class ViewUserList
         $tableList .= '<td>Edit User</td>';
         $tableList .= '<td>Delete User</td>';
         $tableList .= '</tr>';
-
         foreach ($list as $key => $value) {
             $tableList .= '<tr>';
             $tableList .= '<td>'.htmlentities($value['id']).'</td>';
@@ -55,18 +51,14 @@ class ViewUserList
             $tableList .= '</td>';
             $tableList .= '</tr>';
         }
-
         $tableList .= '</table>';
-
         $this->viewHeader->show();
-
         if (empty($list)) {
             echo 'No data yet.';
         } else {
             echo  "<a href='index.php?operation=CreateUser'>Create new user</a><br><br>";
             echo $tableList;
         }
-
         $this->viewFooter->show();
     }
 }
