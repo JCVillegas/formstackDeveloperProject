@@ -10,8 +10,7 @@
     <directory suffix=".php"></directory>
          
     <file>database_connection.php</file>
-    <file>model_user.php</file>   
-    <file>controller_user.php</file>       
+    <file>model_user.php</file>          
     <file>view_user_delete.php</file>
     <file>view_user_edit.php</file> 
     <file>view_user_footer.php</file> 

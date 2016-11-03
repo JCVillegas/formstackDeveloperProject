@@ -71,7 +71,8 @@ class ModelUserTest extends \PHPUnit_Framework_TestCase
         $mock->method('resultset')->willReturn(array());
         $model = new \JCVillegas\DevProject\ModelUser($mock);
         $post=array('id'=>1);
-        $resultUser=$model->getUser($post);         
+        $resultUser=$model->getUser($post);
+                 
 
     }
 
