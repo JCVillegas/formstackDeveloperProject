@@ -3,9 +3,9 @@
 ## Introduction
 Framework application assignment that  creates, reads, updates and deletes users.
 
-## Application files and brief explanation
+## Application files 
 -__index.php__ <br />
-Recieves a GET operation, if it exists it calls the controller and sends the received operation, 
+Works as a router, recieves a GET operation, if it exists it calls the controller and sends the received operation, 
 <br />if none is received it calls the __readUsers()__ method to display a list of users.<br>index.php requires the following classes / files :
 
 1.__DatabaseConfig (database_config.php)__ <br />
@@ -58,9 +58,9 @@ One method that shows a custom message in html.
 11.__ViewUserUpdatePassword (view_user_update_password.php)__<br />
 One method that shows a change password form in html.
 
+
 ## Testing with PHPUnit
 The application includes a __tests__ folder with the following classes / files:<br />
-*ControllerUserTest (ControllerUserTest.php)<br />
 *DatabaseConnectionTest (DatabaseConnectionTest.php)<br />
 *ModelUserTest (ModelUserTest.php)<br />
 *ViewUserDeleteTest(ViewUserDeleteTest.php)<br />
@@ -82,8 +82,8 @@ This wil show the test results and their coverage on the terminal.
 `https://github.com/formstack/server-playbooks-devtest`
 
 ##How to use
-Go to your environment and open a web browser at: `http://testbox.dev/`
-and make use of the different operations:
+With your VM running your environment open a web browser at: `http://testbox.dev/`
+and make use of the CRUD operations:
 
 *__CREATE__ - http://testbox.dev/?operation=CreateUser<br />
 *__READ__   - http://testbox.dev?operation=ReadUsers<br />
@@ -93,7 +93,15 @@ and make use of the different operations:
 
 ## Notes
 Developed in Vagrant envrionment using Ubuntu 16.04, PHP 7.0.8 and MYSQL 5.7.16.<br />
-Updated vagrant's included PHPUNIT with version 5.6.2
+Updated vagrant's included PHPUNIT with version 5.6.2<br />
+Decided to instantiate classes and send them as parameters so my classes won't be dependable in case of migration.<br />
+Also included in the application is a database schema for creating the users table  (database_schema.sql)<br />
+Removed the controller form the unit tests, as the controller logic is very simple and the tests where too complex,<br />
+and didn't have enough time to complete.<br />
+For storing passwords I used the function __password_hash()__,which is a strong hashing algorithm.<br />
+
+
+
 
 
 
